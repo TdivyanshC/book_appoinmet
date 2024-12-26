@@ -1,5 +1,7 @@
+import { Button } from '@/components/ui/button';
 import { Doctors } from '@/constants';
 import { getAppointment } from '@/lib/actions/appointment.actions';
+import { formatDateTime } from '@/lib/utils';
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
@@ -42,8 +44,28 @@ const Success = async ({params : {userId}, searchParams}: SearchParamProps) => {
                     height={100}
                     className='size-6'
                     />
+                    <p className='whitespace-nowrap'>
+                        Dr. {doctor?.name}
+                    </p>
+                </div>
+                <div className='flex gap-2'>
+                    <Image 
+                    src='/assets/icons/calendar.svg'
+                    alt='calendar'
+                    height={24}
+                    width={24}
+                    />
+                    <p >{formatDateTime(appointment.schedule).dateTime}</p>
                 </div>
             </section>
+
+            <Button variant='outline' className='shad-primary-btn max-w-[200px]' asChild>
+                <Link href={`/patients/${userId}/new-appointment`}>
+                New Appointment
+                </Link>
+            </Button>
+
+            <p className='cpoyright'>© 2024 CarePulse</p>
         </div>
     </div>
   )
