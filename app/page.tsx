@@ -5,8 +5,9 @@ import PasskeyModel from "@/components/PasskeyModel";
 import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 
-export default function Home() {
+function HomeContent() {
   const searchParams = useSearchParams();
   const isAdmin = searchParams.get("admin") === "true";
 
@@ -43,5 +44,13 @@ export default function Home() {
         className="side-img max-w-[50%]"
       />
     </div>
+  );
+}
+
+export default function Home() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <HomeContent />
+    </Suspense>
   );
 }
